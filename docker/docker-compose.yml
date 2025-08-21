@@ -1,9 +1,12 @@
+version: "3.9"
+
+services:
   appsmith:
     image: komoliddin/appsmith-ce:1.0
     container_name: appsmith
     ports:
-      - 80"
-      - "443"
+      - "80:80"
+      - "443:443"
     environment:
       APPSMITH_MAIL_ENABLED: "false"
       APPSMITH_DISABLE_TELEMETRY: "true"
@@ -15,3 +18,10 @@
       - backend
     stdin_open: true
     tty: true
+
+volumes:
+  appsmith-stacks:
+
+networks:
+  frontend:
+  backend:
