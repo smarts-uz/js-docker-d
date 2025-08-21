@@ -21,8 +21,8 @@ jobs:
         name: Build and Publish Docker Image
         uses: bitovi/github-actions-docker-publish@v1.0.3
         with:
-          docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          docker_username: dilbekk3@gmail.com
+          docker_password: dilbekk070
           checkout: 'false'
           image_tag: it
           sha: 'true' # bu ishlamaydi, chunki image_tag berilgan
