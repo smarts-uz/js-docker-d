@@ -26,10 +26,10 @@ jobs:
           checkout: 'false'
           image_tag: it
           sha: 'true' # bu ishlamaydi, chunki image_tag berilgan
-          org_name: bitovi
+          org_name: mukhtarovich
           repo_name: deploy-eks-helm
-          build_args: --build-arg git_personal_token=PAT_token
-          working-directory: ./app/inner-folder
+          # build_args: --build-arg git_personal_token=PAT_token
+          # working-directory: ./app
 
       - name: Show outputs
         run: |
