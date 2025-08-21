@@ -16,4 +16,4 @@ jobs:
 
       - name: Execute tests in the running services
         run: |
-          docker compose run --rm test-app pytest
+          docker compose run --rm appsmith pytest
