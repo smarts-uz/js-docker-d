@@ -1,21 +1,37 @@
-  steps:
-    - name: Checkout 
-      uses: actions/checkout@v3
-    - name: do something to the code
-      run: echo "Changed code" > text.txt
-    - id: docker-publish
-      name: Build image
-      uses: bitovi/github-actions-docker-publish@v1.0.3
-      with:
-        docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
-        docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        checkout: 'false'
-        image_tag: it
-        sha: 'true' # won't do anything since image_tag is set
-        org_name: bitovi
-        repo_name: deploy-eks-helm
-        build_args: --build-arg git_personal_token=PAT_token
-        working-directory: ./app/inner-folder
-    - run: |
-        echo "Image Created:  ${{ env.image }}"
-        echo "Tag Created: ${{ env.tag }}"
+name: Docker Publish
+
+on:
+  push:
+    branches:
+      - main   # yoki master / boshqa branch
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+
+      - name: Do something to the code
+        run: echo "Changed code" > text.txt
+
+      - id: docker-publish
+        name: Build and Publish Docker Image
+        uses: bitovi/github-actions-docker-publish@v1.0.3
+        with:
+          docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          checkout: 'false'
+          image_tag: it
+          sha: 'true' # bu ishlamaydi, chunki image_tag berilgan
+          org_name: bitovi
+          repo_name: deploy-eks-helm
+          build_args: --build-arg git_personal_token=PAT_token
+          working-directory: ./app/inner-folder
+
+      - name: Show outputs
+        run: |
+          echo "Image Created:  ${{ env.image }}"
+          echo "Tag Created: ${{ env.tag }}"
