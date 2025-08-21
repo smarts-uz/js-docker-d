@@ -1,0 +1,17 @@
+  appsmith:
+    image: komoliddin/appsmith-ce:1.0
+    container_name: appsmith
+    ports:
+      - "${APPSMITH_PORT}:80"
+      - "${APPSMITH_PORT_HTTPS}:443"
+    environment:
+      APPSMITH_MAIL_ENABLED: "false"
+      APPSMITH_DISABLE_TELEMETRY: "true"
+    volumes:
+      - appsmith-stacks:/appsmith-stacks
+    restart: unless-stopped
+    networks:
+      - frontend
+      - backend
+    stdin_open: true
+    tty: true
