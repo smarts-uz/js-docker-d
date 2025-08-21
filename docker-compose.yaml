@@ -19,5 +19,27 @@ services:
     environment:
       DB_URL: example.com
 
+  appsmith:
+    image: komoliddin/appsmith-ce:1.0
+    container_name: appsmith
+    ports:
+      - "${APPSMITH_PORT}:80"
+      - "${APPSMITH_PORT_HTTPS}:443"
+    environment:
+      APPSMITH_MAIL_ENABLED: "false"
+    volumes:
+      - appsmith-stacks:/appsmith-stacks
+    restart: unless-stopped
+    networks:
+      - frontend
+      - backend
+    stdin_open: true
+    tty: true
+
 volumes:
   tasked:
+  appsmith-stacks:
+
+networks:
+  frontend:
+  backend:
